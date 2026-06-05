@@ -1,2 +1,14 @@
-# meeting-signal-analyzer
-Meeting Signal Analyzer is a tool that analyzes meeting conversations and extracts important information such as key points, action items, decisions, and participant engagement. It helps teams understand meetings better and save time on note-taking.
+# Meeting Signal Analyzer
+
+A web app that analyzes meeting transcripts to detect sales signals (buying interest, objections, confusion) with actionable coaching tips.
+
+## Setup Steps
+
+### Prerequisites
+- Python 3.8 or higher installed
+
+### Backend Setup
+```bash
+cd backend
+pip install flask flask-cors
+python app.py

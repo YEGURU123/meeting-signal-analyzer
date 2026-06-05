@@ -1,36 +1,14 @@
-# Nimitai Signal Analyzer
+# Meeting Signal Analyzer
 
-A signal analysis application with a Flask backend and web frontend.
+A web app that analyzes meeting transcripts to detect sales signals (buying interest, objections, confusion) with actionable coaching tips.
 
-## Project Structure
+## Setup Steps
 
-```
-nimitai-signal-analyzer/
-├── backend/          - Flask API server
-│   ├── app.py       - Main application
-│   ├── requirements.txt
-│   ├── .env         - Environment variables
-│   └── venv/        - Virtual environment
-├── frontend/         - Web interface
-│   └── index.html
-└── README.md
-```
+### Prerequisites
+- Python 3.8 or higher installed
 
-## Setup
-
-### Backend
+### Backend Setup
 ```bash
 cd backend
-python -m venv venv
-venv\Scripts\activate
-pip install -r requirements.txt
-```
-
-### Running
-```bash
-cd backend
-venv\Scripts\activate
+pip install flask flask-cors
 python app.py
-```
-
-Open `frontend/index.html` in your browser.

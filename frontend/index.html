@@ -3,20 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NimitAI - Meeting Signal Analyzer</title>
+    <title>Signal Analyzer</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        body { font-family: Arial; padding: 20px; background: #667eea; margin: 0; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px; }
+        h1 { color: #333; }
+        textarea { width: 100%; padding: 10px; font-size: 14px; margin-bottom: 10px; }
+        button { background: #667eea; color: white; padding: 10px 20px; border: none; cursor: pointer; font-size: 14px; border-radius: 5px; }
+        button:hover { background: #555; }
+        .signal { border-left: 4px solid red; padding: 10px; margin: 10px 0; background: #f8f9fa; border-radius: 5px; }
+        .signal strong { display: block; margin-bottom: 5px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Meeting Signal Analyzer</h1>
+        
+        <textarea id="transcript" rows="6">Rep: Pricing is $499/seat/month.
+Prospect: That seems steep. We pay under $200 currently.
+Rep: If your team closes one extra deal per quarter, it pays for itself 10x.
+Prospect: Send me a pricing deck and I'll get back to you.</textarea>
+        
+        <button onclick="analyze()">Analyze Signals</button>
+        
+        <div id="results"></div>
+    </div>
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
+    <script>
+        async function analyze() {
+            const transcript = document.getElementById('transcript').value;
+            try {
+                const response = await fetch('/api/analyse', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ transcript: transcript })
+                });
+                const data = await response.json();
+                const resultsDiv = document.getElementById('results');
+                resultsDiv.innerHTML = data.signals.map(s => `
+                    <div class="signal">
+                        <strong>${s.type.toUpperCase()}</strong>
+                        "${s.quote}"<br>
+                        💡 ${s.tip}
+                    </div>
+                `).join('');
+            } catch (e) {
+                document.getElementById('results').innerHTML = '<div class="signal" style="border-left-color: red;">Error: ' + e.message + '</div>';
+            }
         }
+    </script>
+</body>
+</html>
 
         .container {
             max-width: 1200px;

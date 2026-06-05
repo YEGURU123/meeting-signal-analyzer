@@ -6,17 +6,20 @@ CORS(app)
 
 @app.route('/api/analyse', methods=['POST'])
 def analyse():
-    data = request.get_json()
-    transcript = data.get('transcript', '')
-    
-    signals = [{
-        "type": "objection",
-        "quote": "That seems steep. We pay under $200 currently.",
-        "tip": "Acknowledge budget concerns then reframe ROI"
-    }]
-    
-    return jsonify({"signals": signals})
+    return jsonify({
+        "signals": [
+            {
+                "type": "objection",
+                "quote": "That seems steep. We pay under $200 currently.",
+                "tip": "Acknowledge budget concern"
+            }
+        ]
+    })
 
 @app.route('/api/health', methods=['GET'])
 def health():
     return jsonify({"status": "healthy"})
+
+@app.route('/', methods=['GET'])
+def home():
+    return jsonify({"message": "API is working"})
